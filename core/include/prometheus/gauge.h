@@ -25,6 +25,13 @@ class Gauge {
 
   /// \brief Create a gauge that starts at 0.
   Gauge() = default;
+  ~Gauge() noexcept = default;
+
+  Gauge(const Gauge&) = default;
+  Gauge& operator = (const Gauge&) = default;
+
+  Gauge(Gauge&&) = default;
+  Gauge& operator = (Gauge&&) = default;
 
   /// \brief Create a gauge that starts at the given amount.
   Gauge(double);
