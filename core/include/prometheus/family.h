@@ -166,7 +166,7 @@ std::shared_ptr<T> Family<T>::Add(const std::map<std::string, std::string>& labe
     const auto& old_labels = labels_iter->second;
     assert(labels == old_labels);
 #endif
-    return *metrics_iter->second;
+    return metrics_iter->second;
   } else {
     auto metric =
         metrics_.insert(std::make_pair(hash, std::make_shared<T>(args...)));

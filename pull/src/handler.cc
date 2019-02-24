@@ -126,10 +126,10 @@ bool MetricsHandler::handleGet(CivetServer* server,
   auto stop_time_of_request = std::chrono::steady_clock::now();
   auto duration = std::chrono::duration_cast<std::chrono::microseconds>(
       stop_time_of_request - start_time_of_request);
-  request_latencies_.Observe(duration.count());
+  request_latencies_->Observe(duration.count());
 
-  bytes_transferred_.Increment(bodySize);
-  num_scrapes_.Increment();
+  bytes_transferred_->Increment(bodySize);
+  num_scrapes_->Increment();
   return true;
 }
 std::vector<MetricFamily> MetricsHandler::CollectMetrics() const {
