@@ -169,7 +169,7 @@ std::shared_ptr<T> Family<T>::Add(const std::map<std::string, std::string>& labe
     return *metrics_iter->second;
   } else {
     auto metric =
-        metrics_.insert(std::make_pair(hash, detail::make_shared<T>(args...)));
+        metrics_.insert(std::make_pair(hash, std::make_shared<T>(args...)));
     assert(metric.second);
     labels_.insert({hash, labels});
     labels_reverse_lookup_.insert({metric.first->second.get(), hash});
