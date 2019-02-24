@@ -106,7 +106,7 @@ class Family : public Collectable {
   /// \return Return the newly created dimensional data or - if a same set of
   /// lables already exists - the already existing dimensional data.
   template <typename... Args>
-  T& Add(const std::map<std::string, std::string>& labels, Args&&... args);
+  std::shared_ptr<T> Add(const std::map<std::string, std::string>& labels, Args&&... args);
 
   /// \brief Remove the given dimensional data.
   ///
@@ -122,7 +122,7 @@ class Family : public Collectable {
   std::vector<MetricFamily> Collect() override;
 
  private:
-  std::unordered_map<std::size_t, std::unique_ptr<T>> metrics_;
+  std::unordered_map<std::size_t, std::shared_ptr<T>> metrics_;
   std::unordered_map<std::size_t, std::map<std::string, std::string>> labels_;
   std::unordered_map<T*, std::size_t> labels_reverse_lookup_;
 
@@ -146,7 +146,7 @@ Family<T>::Family(const std::string& name, const std::string& help,
 
 template <typename T>
 template <typename... Args>
-T& Family<T>::Add(const std::map<std::string, std::string>& labels,
+std::shared_ptr<T> Family<T>::Add(const std::map<std::string, std::string>& labels,
                   Args&&... args) {
 #ifndef NDEBUG
   for (auto& label_pair : labels) {
@@ -169,11 +169,11 @@ T& Family<T>::Add(const std::map<std::string, std::string>& labels,
     return *metrics_iter->second;
   } else {
     auto metric =
-        metrics_.insert(std::make_pair(hash, detail::make_unique<T>(args...)));
+        metrics_.insert(std::make_pair(hash, detail::make_shared<T>(args...)));
     assert(metric.second);
     labels_.insert({hash, labels});
     labels_reverse_lookup_.insert({metric.first->second.get(), hash});
-    return *(metric.first->second);
+    return metric.first->second;
   }
 }
 

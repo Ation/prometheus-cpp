@@ -27,11 +27,11 @@ class Gauge {
   Gauge() = default;
   ~Gauge() noexcept = default;
 
-  Gauge(const Gauge&) = default;
-  Gauge& operator = (const Gauge&) = default;
+  Gauge(const Gauge&) = delete;
+  Gauge& operator = (const Gauge&) = delete;
 
-  Gauge(Gauge&&) = default;
-  Gauge& operator = (Gauge&&) = default;
+  Gauge(Gauge&&) = delete;
+  Gauge& operator = (Gauge&&) = delete;
 
   /// \brief Create a gauge that starts at the given amount.
   Gauge(double);
