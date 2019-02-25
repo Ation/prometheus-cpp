@@ -22,7 +22,7 @@ class SummaryBuilder {
   SummaryBuilder& Labels(const std::map<std::string, std::string>& labels);
   SummaryBuilder& Name(const std::string&);
   SummaryBuilder& Help(const std::string&);
-  Family<Summary>& Register(Registry&);
+  std::shared_ptr<Family<Summary>> Register(Registry&);
 
  private:
   std::map<std::string, std::string> labels_;

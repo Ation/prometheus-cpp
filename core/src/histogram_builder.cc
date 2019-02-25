@@ -24,7 +24,7 @@ HistogramBuilder& HistogramBuilder::Help(const std::string& help) {
   return *this;
 }
 
-Family<Histogram>& HistogramBuilder::Register(Registry& registry) {
+std::shared_ptr<Family<Histogram>> HistogramBuilder::Register(Registry& registry) {
   return registry.Add<Histogram>(name_, help_, labels_);
 }
 }  // namespace detail

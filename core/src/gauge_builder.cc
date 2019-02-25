@@ -24,7 +24,7 @@ GaugeBuilder& GaugeBuilder::Help(const std::string& help) {
   return *this;
 }
 
-Family<Gauge>& GaugeBuilder::Register(Registry& registry) {
+std::shared_ptr<Family<Gauge>> GaugeBuilder::Register(Registry& registry) {
   return registry.Add<Gauge>(name_, help_, labels_);
 }
 }  // namespace detail

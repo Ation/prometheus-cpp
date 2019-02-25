@@ -22,7 +22,7 @@ class HistogramBuilder {
   HistogramBuilder& Labels(const std::map<std::string, std::string>& labels);
   HistogramBuilder& Name(const std::string&);
   HistogramBuilder& Help(const std::string&);
-  Family<Histogram>& Register(Registry&);
+  std::shared_ptr<Family<Histogram>> Register(Registry&);
 
  private:
   std::map<std::string, std::string> labels_;

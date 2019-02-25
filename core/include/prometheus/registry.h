@@ -51,21 +51,20 @@ class Registry : public Collectable {
   friend class detail::SummaryBuilder;
 
   template <typename T>
-  Family<T>& Add(const std::string& name, const std::string& help,
+  std::shared_ptr<Family<T>> Add(const std::string& name, const std::string& help,
                  const std::map<std::string, std::string>& labels);
 
-  std::vector<std::unique_ptr<Collectable>> collectables_;
+  std::vector<std::shared_ptr<Collectable>> collectables_;
   std::mutex mutex_;
 };
 
 template <typename T>
-Family<T>& Registry::Add(const std::string& name, const std::string& help,
+std::shared_ptr<Family<T>> Registry::Add(const std::string& name, const std::string& help,
                          const std::map<std::string, std::string>& labels) {
   std::lock_guard<std::mutex> lock{mutex_};
-  auto family = detail::make_unique<Family<T>>(name, help, labels);
-  auto& ref = *family;
-  collectables_.push_back(std::move(family));
-  return ref;
+  auto family = std::make_shared<Family<T>>(name, help, labels);
+  collectables_.push_back(family);
+  return family;
 }
 
 }  // namespace prometheus

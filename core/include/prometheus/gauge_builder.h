@@ -22,7 +22,7 @@ class GaugeBuilder {
   GaugeBuilder& Labels(const std::map<std::string, std::string>& labels);
   GaugeBuilder& Name(const std::string&);
   GaugeBuilder& Help(const std::string&);
-  Family<Gauge>& Register(Registry&);
+  std::shared_ptr<Family<Gauge>> Register(Registry&);
 
  private:
   std::map<std::string, std::string> labels_;

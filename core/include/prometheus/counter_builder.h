@@ -22,7 +22,7 @@ class CounterBuilder {
   CounterBuilder& Labels(const std::map<std::string, std::string>& labels);
   CounterBuilder& Name(const std::string&);
   CounterBuilder& Help(const std::string&);
-  Family<Counter>& Register(Registry&);
+  std::shared_ptr<Family<Counter>> Register(Registry&);
 
  private:
   std::map<std::string, std::string> labels_;

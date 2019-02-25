@@ -22,18 +22,18 @@ MetricsHandler::MetricsHandler(
               .Name("exposer_bytes_transferred")
               .Help("bytesTransferred to metrics services")
               .Register(registry)),
-      bytes_transferred_(bytes_transferred_family_.Add({})),
+      bytes_transferred_(bytes_transferred_family_->Add({})),
       num_scrapes_family_(BuildCounter()
                               .Name("exposer_total_scrapes")
                               .Help("Number of times metrics were scraped")
                               .Register(registry)),
-      num_scrapes_(num_scrapes_family_.Add({})),
+      num_scrapes_(num_scrapes_family_->Add({})),
       request_latencies_family_(
           BuildSummary()
               .Name("exposer_request_latencies")
               .Help("Latencies of serving scrape requests, in microseconds")
               .Register(registry)),
-      request_latencies_(request_latencies_family_.Add(
+      request_latencies_(request_latencies_family_->Add(
           {}, Summary::Quantiles{{0.5, 0.05}, {0.9, 0.01}, {0.99, 0.001}})) {}
 
 #ifdef HAVE_ZLIB

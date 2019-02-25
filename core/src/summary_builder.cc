@@ -24,7 +24,7 @@ SummaryBuilder& SummaryBuilder::Help(const std::string& help) {
   return *this;
 }
 
-Family<Summary>& SummaryBuilder::Register(Registry& registry) {
+std::shared_ptr<Family<Summary>> SummaryBuilder::Register(Registry& registry) {
   return registry.Add<Summary>(name_, help_, labels_);
 }
 }  // namespace detail

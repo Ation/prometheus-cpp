@@ -24,7 +24,7 @@ CounterBuilder& CounterBuilder::Help(const std::string& help) {
   return *this;
 }
 
-Family<Counter>& CounterBuilder::Register(Registry& registry) {
+std::shared_ptr<Family<Counter>> CounterBuilder::Register(Registry& registry) {
   return registry.Add<Counter>(name_, help_, labels_);
 }
 }  // namespace detail
